@@ -111,7 +111,7 @@
                                 <a href="#">
                                     <div>
                                         <p> <strong>Task 1</strong> <span class="pull-right text-muted">40% Complete</span> </p>
-                                        <div class="progress progress-striped active">
+                                        <div class="progress progress-striped">
                                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                                 <a href="#">
                                     <div>
                                         <p> <strong>Task 2</strong> <span class="pull-right text-muted">20% Complete</span> </p>
-                                        <div class="progress progress-striped active">
+                                        <div class="progress progress-striped">
                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> <span class="sr-only">20% Complete</span> </div>
                                         </div>
                                     </div>
@@ -133,7 +133,7 @@
                                 <a href="#">
                                     <div>
                                         <p> <strong>Task 3</strong> <span class="pull-right text-muted">60% Complete</span> </p>
-                                        <div class="progress progress-striped active">
+                                        <div class="progress progress-striped">
                                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"> <span class="sr-only">60% Complete (warning)</span> </div>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@
                                 <a href="#">
                                     <div>
                                         <p> <strong>Task 4</strong> <span class="pull-right text-muted">80% Complete</span> </p>
-                                        <div class="progress progress-striped active">
+                                        <div class="progress progress-striped">
                                             <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"> <span class="sr-only">80% Complete (danger)</span> </div>
                                         </div>
                                     </div>
@@ -276,7 +276,7 @@
                         <!-- /input-group -->
                     </li>
                     <li class="nav-small-cap m-t-10">--- Main Menu</li>
-                    <li> <a href="index.html" class="waves-effect active"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard <span class="fa arrow"></span> <span class="label label-rouded label-custom pull-right">4</span></span></a>
+                    <li> <a href="index.html" class="waves-effect"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard <span class="fa arrow"></span> <span class="label label-rouded label-custom pull-right">4</span></span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="index.html">Minimalistic</a> </li>
                             <li> <a href="index2.html">Demographical</a> </li>
@@ -284,19 +284,19 @@
                             <li> <a href="index4.html">Simpler</a> </li>
                         </ul>
                     </li>
-                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="linea-icon linea-basic fa-fw text-danger" data-icon="7"></i> <span class="hide-menu text-danger"> Master <span class="fa arrow"></span> <span class="label label-rouded label-danger pull-right">HOT</span></span></a>
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="linea-icon linea-basic fa-fw text-danger" data-icon="7"></i> <span class="hide-menu"> Master <span class="fa arrow"></span> <span class="label label-rouded label-danger pull-right">HOT</span></span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="<?php echo base_url(); ?>/master/asuransi">Asuransi</a> </li>
                             <li> <a href="<?php echo base_url(); ?>/master/barang">Barang</a> </li>
                             <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-university/index.html">Pelanggan</a> </li>
                             <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-music/index.html">Satuan</a> </li>
-                            <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-real-estate/index.html">Sediaan</a> </li>
+                            <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-real-estate/index.html">Koreksi Stok</a> </li>
                             <li role="separator" class="divider"></li>
                             <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-inverse/index.html">Supplier</a></li>
                             <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-colors/index.html">Unit Kerja</a></li>
                         </ul>
                     </li>
-                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="linea-icon linea-basic fa-fw text-danger" data-icon="7"></i> <span class="hide-menu text-danger"> Pelayanan <span class="fa arrow"></span> <span class="label label-rouded label-danger pull-right">HOT</span></span></a>
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="linea-icon linea-basic fa-fw text-danger" data-icon="7"></i> <span class="hide-menu"> Pelayanan <span class="fa arrow"></span> <span class="label label-rouded label-danger pull-right">HOT</span></span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-hospital/index.html">Penjualan</a> </li>
                         </ul>
