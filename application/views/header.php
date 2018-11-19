@@ -286,10 +286,10 @@
                     </li>
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="linea-icon linea-basic fa-fw text-danger" data-icon="7"></i> <span class="hide-menu"> Master <span class="fa arrow"></span> <span class="label label-rouded label-danger pull-right">HOT</span></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="<?php echo base_url(); ?>/master/asuransi">Asuransi</a> </li>
                             <li> <a href="<?php echo base_url(); ?>/master/barang">Barang</a> </li>
-                            <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-university/index.html">Pelanggan</a> </li>
-                            <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-music/index.html">Satuan</a> </li>
+                            <li> <a href="<?php echo base_url(); ?>/master/pelanggan">Pelanggan</a> </li>
+                            <li> <a href="<?php echo base_url(); ?>/master/user">User</a> </li>
+                            <li> <a href="<?php echo base_url(); ?>/master/satuan">Satuan</a> </li>
                             <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-real-estate/index.html">Koreksi Stok</a> </li>
                             <li role="separator" class="divider"></li>
                             <li> <a href="<?php echo base_url(); ?>/assets/template/eliteadmin-inverse/index.html">Supplier</a></li>
