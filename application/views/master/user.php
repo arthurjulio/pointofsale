@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <button class="btn btn-md btn-primary"> <i class="fa fa-plus">Tambah data user</i></button>
+                            <button class="btn btn-md btn-primary" data-toggle="modal" data-target="#modaltambahuser"> <i class="fa fa-plus" onclick="tambah()">Tambah data user</i></button>
                             <p>&nbsp;</p>
                             <h3 class="box-title m-b-0">Data Table</h3>
                             <p class="text-muted m-b-30">Data table example</p>
@@ -134,6 +134,79 @@
                 <!-- /.right-sidebar -->
             </div>
             <!-- /.container-fluid -->
+            <div id="modaltambahuser" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title judul-modal" id="myLargeModalLabel">Large modal</h4> 
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="form-satuan" name="form_satuan">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="Nama">Nama</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"> <i class="ti-drupal"></i></div>
+                                                            <input type="text" name="nama" id="nama" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="Alamat">Alamat</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"> <i class="ti-home"></i></div>
+                                                            <input type="text" name="alamat" id="alamat" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="No_telpon">Nomor Telepon</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"> <i class="ti-mobile"></i></div>
+                                                            <input type="text" name="no_telpon" id="no_telpon" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="Jabatan">Jabatan</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"> <i class="ti-id-badge"></i></div>
+                                                            <input type="text" name="abatan" id="jabatan" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="Username">Username</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"> <i class="ti-medall"></i></div>
+                                                            <input type="text" name="username" id="username" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="Password">Password</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"> <i class="ti-lock"></i></div>
+                                                            <input type="text" name="password" id="password" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+            </div>
+
 <?php 
     $this->load->view("footer");
 ?>
@@ -141,6 +214,9 @@
     <script src="<?php echo base_url(); ?>/assets/template/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
 
     <script type="text/javascript">
+    var global_id;
+    var global_method;
+
         $(document).ready(function(){
             table = $('#tabel-user').DataTable({
                 "columnDefs": [{
@@ -159,5 +235,33 @@
         $("#reload-tabel").click(function(){
             table.ajax.reload();
         });
+
+        function tambah()
+        {
+            $(".judul-modal").text("Tambah User");
+            $("#form-satuan")[0].reset();
+        }
+        function ubah(id)
+        {
+            $(".judul-modal").text("Ubah Satuan");
+            $.ajax({
+                url : "<?php echo base_url(); ?>master/User/get_data/"+id,
+                type: "POST",
+                dataType: "JSON",
+                success: function(data)
+                {
+                    $("#nama").val(data.nama);
+                    $("#alamat").val(data.alamat);
+                    $("#no_telpon").val(data.no_telpon);
+                    $("#jabatan").val(data.jabatan);
+                    $("#username").val(data.username);
+                },
+                error: function (jqXHR, textStatus, erorThrown)
+                {
+                    alert('Error adding / update data')
+                }
+            });
+            
+        }
     </script>
     <!-- start - This is for export functionality only -->
