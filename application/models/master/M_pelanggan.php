@@ -77,12 +77,14 @@ class M_pelanggan extends CI_Model {
     function simpan($data)
     {
         $this->db->insert($this->table, $data);
+        echo json_encode("Success");
     }
     
     function edit($id, $data)
     {
         $this->db->Where('id', $id);
         $this->db->update($this->table, $data);
+        echo json_encode("Success");
     }
 
     function get_data($id)
@@ -95,5 +97,6 @@ class M_pelanggan extends CI_Model {
     {
         $this->db->where('id', $id);
         $this->db->delete($this->table);
+        echo json_encode("Success");
     }
 }

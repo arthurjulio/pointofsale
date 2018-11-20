@@ -3,6 +3,7 @@
 ?>
 <link href="<?php echo base_url(); ?>/assets/template/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url(); ?>/assets/template/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -167,8 +168,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary waves-effect text-left" data-dismiss="modal">Submit</button>
                             <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary btn-md" id="btn-simpan"><i class="fa fa-save"></i> Simpan</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -180,6 +181,7 @@
     $this->load->view("footer");
 ?>
 
+    <script src="<?php echo base_url(); ?>/assets/template/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
     <script src="<?php echo base_url(); ?>/assets/template/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
     <!-- start - This is for export functionality only -->
 
@@ -209,9 +211,12 @@
         function tambah(){
             $(".judul-modal").text("Tambah Pelanggan");
             $("#form-pelanggan")[0].reset();
+            global_method = "tambah";
         }
 
         function ubah(id){
+            global_method = "ubah";
+            global_id = id;
             $(".judul-modal").text("Ubah Pelanggan");
             $.ajax({
                 url : "<?php echo base_url(); ?>master/Pelanggan/get_data/"+id,
@@ -225,4 +230,62 @@
             });
         }
 
+        $("#btn-simpan").click(function(e){
+
+            if (global_method=="tambah") {
+                url = "<?php echo base_url(); ?>master/Pelanggan/simpan/";
+            }
+            else{
+                url = "<?php echo base_url(); ?>master/Pelanggan/edit/"+global_id;
+            }
+
+            $.ajax({
+                url : url,
+                type: "POST",
+                data: $("#form-pelanggan").serialize(),
+                dataType: "JSON",
+                success: function(data){
+                    $("#modal-pelanggan").modal("hide");
+                    table.ajax.reload();
+                    swal("Success!", "Data berhasil disimpan", "success");
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                    alert('Error adding / update data');
+                }
+            });   
+        });
+
+        function hapus(id)
+        {
+            swal({
+                title: "Anda Yakin?",
+                text: "Data akan terhapus secara permanen!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, saya yakin!",
+                cancelButtonText: "Tidak, batalkan",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            }, function(isConfirm){
+                if (isConfirm) {
+
+                    $.ajax({
+                        url: "<?php echo base_url(); ?>master/Pelanggan/hapus/"+id,
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function(data)
+                        {
+                            table.ajax.reload();
+                            swal("Success!", "Data berhasil dihapus!", "success");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown)
+                        {
+                            alert('Error get data from ajax');
+                        }
+                    });
+                }
+            });
+        }
     </script>
