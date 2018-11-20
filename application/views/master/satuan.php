@@ -3,6 +3,7 @@
 ?>
 <link href="<?php echo base_url(); ?>/assets/template/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url(); ?>assets/template/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -21,7 +22,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <button class="btn btn-md btn-primary"><i class="fa fa-plus"> Tambah data satuan</i></button>
+                            <button class="btn btn-md btn-primary" data-toggle="modal" data-target="#modal-satuan" onclick="tambah()"><i class="fa fa-plus"> Tambah data satuan</i></button>
                             <p>&nbsp;</p>
                             <p class="text-muted m-b-30">Tabel satuan</p>
 
@@ -124,14 +125,47 @@
                 <!-- /.right-sidebar -->
             </div>
             <!-- /.container-fluid -->
+<div id="modal-satuan" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title judul-modal" id="myModalLabel"></h4> </div>
+            <div class="modal-body">
+                <form id="form-satuan" name="form_satuan">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="nama">Nama satuan</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-id-badge"></i></div>
+                                <input type="text" name="nama" id="nama" class="form-control" value="">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-md btn-primary" id="btn-simpan"><i class="fa fa-save"></i> Simpan</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <?php 
     $this->load->view("footer");
 ?>
+<script src="<?php echo base_url(); ?>assets/template/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
 
-    <script src="<?php echo base_url(); ?>/assets/template/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>/assets/template/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
     <!-- start - This is for export functionality only -->
 
 <script type="text/javascript">
+var global_id;
+var global_method;
+
     $(document).ready(function(){
         table = $('#tabel-satuan').DataTable({
             "columnDefs": [{
@@ -150,4 +184,98 @@
     $("#reload-tabel").click(function(){
         table.ajax.reload();
     });
+
+    function tambah()
+    {
+        $(".judul-modal").text("Tambah Satuan");
+        $("#form-satuan")[0].reset();
+        global_method = "add";
+    }
+
+    function ubah(id)
+    {
+        global_method="edit";
+        global_id = id;
+        $(".judul-modal").text("Ubah Satuan");
+        $.ajax({
+            url : "<?php echo base_url(); ?>master/Satuan/get_data/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                
+                $("#nama").val(data.nama);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data');
+            }
+
+        });
+    }
+
+    $("#btn-simpan").click(function(e){
+
+        $(".judul-modal").text("Ubah Satuan");
+
+        if (global_method=="add") {
+            url = "<?php echo base_url(); ?>master/Satuan/simpan/";
+        }
+        else {
+            url = "<?php echo base_url(); ?>master/Satuan/edit/"+global_id;
+        }
+
+        $.ajax({
+            url : url,
+            type: "POST",
+            data: $("#form-satuan").serialize(),
+            dataType: "JSON",
+            success: function(data)
+            {
+                $("#modal-satuan").modal("hide");
+                table.ajax.reload();
+                swal("Success!", "Data berhasil disimpan!", "success");
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data');
+            }
+
+        });
+
+    });
+
+    function hapus(id)
+    {
+        swal({   
+            title: "Anda yakin?",   
+            text: "Data akan terhapus secara permanen!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Ya, saya yakin!",   
+            cancelButtonText: "Tidak, batalkan!",   
+            closeOnConfirm: true,
+            closeOnCancel: true 
+        }, function(isConfirm){   
+            if (isConfirm) {
+
+                $.ajax({
+                    url : "<?php echo base_url(); ?>master/Satuan/hapus/"+id,
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        table.ajax.reload();  
+                        swal("Success!", "Data berhasil dihapus!", "success");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert('Error get data from ajax');
+                    }
+                });
+                
+            }
+        });
+    }
 </script>

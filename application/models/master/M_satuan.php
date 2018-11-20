@@ -79,31 +79,27 @@ class M_satuan extends CI_Model {
     function simpan($data)
     {
         $this->db->insert($this->table, $data);
-    }
-
-    function show_edit($id)
-    {
-        $this->db->from($this->table);
-        $this->db->Where('id', $id);
-        return $this->db->get()->row();
+        echo json_encode("success");
     }
     
     function edit($id, $data)
     {
         $this->db->Where('id', $id);
         $this->db->update($this->table, $data);
+
+        echo json_encode("success");
     }
 
-    function getAll()
+    function get_data($id)
     {
-        $this->db->from($this->table);
-        // $this->db->Where('is_delete', 0);
-        return $this->db->get()->result();
+    	$this->db->where('id', $id);
+    	echo json_encode($this->db->get($this->table)->row());
     }
 
     function hapus($id)
     {
         $this->db->where('id', $id);
         $this->db->delete($this->table);
+        echo json_encode("success");
     }
 }

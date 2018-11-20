@@ -20,7 +20,11 @@ class Satuan extends CI_Controller {
     	foreach ($list as $key) {
             $no++;
     		$row = array();
-            $row[] = $no;
+            $row[] = $key->nama;
+            $row[] = "
+            <button class='btn btn-sm btn-primary' data-toggle='modal' data-target='#modal-satuan' title='ubah data' onclick='ubah(".$key->id.")'><i class='fa fa-edit'></i></button>
+            <button class='btn btn-sm btn-danger' title='hapus data' onclick='hapus(".$key->id.")'><i class='fa fa-trash'></i></button>
+            ";
 			$data[] = $row;
             
     	}
@@ -30,6 +34,26 @@ class Satuan extends CI_Controller {
                         "data" => $data);
 
     	echo json_encode($output);
+	}
+
+	function get_data($id)
+	{
+		$this->M_satuan->get_data($id);
+	}
+
+	function simpan()
+	{
+		$this->M_satuan->simpan($this->input->post());
+	}
+
+	function edit($id)
+	{
+		$this->M_satuan->edit($id, $this->input->post());
+	}
+
+	function hapus($id)
+	{
+		$this->M_satuan->hapus($id);
 	}
 
 }
