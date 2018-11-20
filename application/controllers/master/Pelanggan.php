@@ -11,4 +11,35 @@ class Pelanggan extends CI_Controller {
 		$this->load->view("master/pelanggan");
 	}
 
+	function ajaxTable(){
+
+		$list = $this->M_pelanggan->tampil();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $key) {
+			$no++;
+			$row = array();
+			$row[] = $key->nama;
+			$row[] = $key->alamat;
+			$row[] = $key->no_telpon;
+			$row[] = "
+			<button class='btn btn-sm btn-primary' data-toggle='modal' data-target='#modal-pelanggan' onclick='ubah(".$key->id.")' tittle='Ubah Data'><i class='fa fa-edit'></i></button> 
+			<button class='btn btn-sm btn-danger' tittle='Hapus Data'><i class='fa fa-trash'></i></button>
+			";
+			$data[] = $row;
+
+		}
+		$output = array("draw" => $_POST['draw'],
+						"recordsTotal" => $this->M_pelanggan->count_all(),
+						"recordsFiltered" => $this->M_pelanggan->count_filtered(),
+						"data" => $data
+						);
+		
+		echo json_encode($output);
+	}
+
+	function get_data($id){
+		$this->M_pelanggan->get_data($id);
+	}
+
 }
